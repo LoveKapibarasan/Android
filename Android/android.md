@@ -137,3 +137,4 @@ Bootloader
 * GAPPS: google apps
 * AOSP: android open source project
 * Vanilla: No Google Apps
+* Go Edition: For low spec devices

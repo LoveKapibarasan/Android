@@ -1,6 +1,16 @@
 
 1. Install TestDPC as a device owner
 > 8 click "Welcome" and scan QR code.
+> Do not add Google account while initialization.
+> – In the Google Sign in page, enter `afw#TestDPC` in the Email or Phone section.
+```bash
+adb shell dpm set-device-owner com.afwsamples.testdpc/.DeviceAdminReceiver
+```
+* Do not create private profile.
+
+**Safe Boot**
+* User Restrictions -> DISALLOW_FACTORY_RESET
+
 
 2. Enable USB debugging and uninstall Apps
 
@@ -8,7 +18,7 @@
 
 ```bash
 # list 3rd party apps
-adb shell pm list packages -3
+adb shell pm list packages -3 | findstr xxx
 adb shell pm uninstall --user 0 com.google.example
 # System Apps 
 adb shell pm list packages -s
@@ -40,6 +50,8 @@ adb shell pm uninstall --user 0 com.google.android.apps.photosgo
 
 adb shell pm uninstall --user 0 com.android.deskclock.go
 
+ adb shell pm uninstall --user 0 com.android.customization.themes
+
 adb shell pm uninstall --user 0 com.android.camera
 ```
 > With HyperOS, you can delete Google Apps
@@ -64,6 +76,15 @@ adb shell pm uninstall --user 0 com.miui.bugreport
 adb shell pm uninstall --user 0 com.go.browser
 
 adb shell pm uninstall --user 0 com.miui.theme.lite
+
+adb shell pm uninstall --user 0 com.mi.globalminusscreen
+adb shell pm uninstall --user 0 com.mi.globallayout
+adb shell pm uninstall --user 0 com.miui.analytics.go
+adb shell pm uninstall --user 0 com.miui.qr
+adb shell pm uninstall --user 0 com.miui.android.fashiongallery
+adb shell pm uninstall --user 0 com.miui.msa.global
+adb shell pm uninstall --user 0 com.xiaomi.discover
+adb shell pm uninstall --user 0 com.android.customization.themes
 ```
 
 
@@ -105,12 +126,16 @@ adb shell settings put global device_name "$MY_HOSTNAME"
 
  # バイブレーションも無効化
  adb shell settings put system notification_vibration_intensity 0
+
+ adb shell pm uninstall --user 0 com.gogo.launcher
 ```
 
 * Turn on Do Not Disturb Mode
 
+* **Overlay**:画面の上に重ねて表示される機能
+
   5. Install
-     1. App Block
+     1. App Block, Stay Focused
         * [URL](https://appblock.app/)
        > If blocked, use [AppMirror](https://www.apkmirror.com/)
        > Sideload is blocked 
@@ -121,8 +146,13 @@ adb shell settings put global device_name "$MY_HOSTNAME"
      4. Firefox
          * [URL](https://thekiwibrowser.com/)
      5. Temux
-        * Use F-Droid 
         * [URL](https://termux.dev/en/)
-     6. Syncthizing
+        * Download apk from F-Droid
+     6. Syncthing
          * [URL]()
      7. Wireguard
+     8. Claude.ai
+     9. Google Map
+     10. Google Authenticator
+     11. Gmail, Outlook
+     12. Niagara Launcher
