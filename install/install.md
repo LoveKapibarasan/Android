@@ -151,8 +151,10 @@ adb shell settings put global device_name "$MY_HOSTNAME"
      6. Syncthing
          * [URL]()
      7. Wireguard
+        * Enable Always on VPN
      8. Claude.ai
      9. Google Map
      10. Google Authenticator
      11. Gmail, Outlook
      12. Niagara Launcher
+     13. aFreeRDP
