@@ -139,7 +139,7 @@ adb shell settings put global device_name "$MY_HOSTNAME"
         * [URL](https://appblock.app/)
        > If blocked, use [AppMirror](https://www.apkmirror.com/)
        > Sideload is blocked 
-     2. Material Files
+     2. Material Files, VLC for Android, CX File Manager
         * [Github](https://github.com/zhanghai/MaterialFiles)
      3. Shogi Wars
 
@@ -148,7 +148,7 @@ adb shell settings put global device_name "$MY_HOSTNAME"
      5. Temux
         * [URL](https://termux.dev/en/)
         * Download apk from F-Droid
-     6. Syncthing
+     6. ( Syncthing )
          * [URL]()
      7. Wireguard
         * Enable Always on VPN
@@ -157,4 +157,3 @@ adb shell settings put global device_name "$MY_HOSTNAME"
      10. Google Authenticator
      11. Gmail, Outlook
      12. Niagara Launcher
-     13. aFreeRDP
