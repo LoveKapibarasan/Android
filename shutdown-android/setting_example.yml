@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lock_config>
+<packages>
+<package>com.android.settings</package>
+<package>com.wireguard.android</package>
+<package>com.afsample.testdpc</package>
+</packages>
+
+<time_triggers>
+
+<!-- 00:00 ~ 06:00 ずっとブロック -->
+<trigger type="repeating">
+<start_hour>0</start_hour>
+<start_minute>0</start_minute>
+<end_hour>6</end_hour>
+<end_minute>0</end_minute>
+</trigger>
+
+<!-- 6時から20時まで55分ごとに5分間ブロック -->
+<trigger type="repeating">
+<start_hour>6</start_hour>
+<start_minute>55</start_minute>
+<interval_minutes>55</interval_minutes>
+<end_hour>19</end_hour>
+<end_minute>55</end_minute>
+<duration_minutes>5</duration_minutes>
+</trigger>
+
+<!-- 20:00 ~ 23:59 ずっとブロック -->
+<trigger type="repeating">
+<start_hour>20</start_hour>
+<start_minute>0</start_minute>
+<end_hour>23</end_hour>
+<end_minute>59</end_minute>
+</trigger>
+
+</time_triggers>
+</lock_config>
