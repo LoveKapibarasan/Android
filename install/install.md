@@ -157,3 +157,4 @@ adb shell settings put global device_name "$MY_HOSTNAME"
      10. Google Authenticator
      11. Gmail, Outlook
      12. Niagara Launcher
+     13. RealVNC Viewer
