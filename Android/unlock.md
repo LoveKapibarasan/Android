@@ -51,8 +51,14 @@ fastboot flashing unlock
 * Boot.img has raw, gz, lz4 format
 
 **DSU Loader**
+* DSU(Dynamic System Updates)
 * Install GSI via DSU.
 * [Reference](https://note.com/kiphoneix/n/na9fcf8f523e2)
+
+
+**GSI (Generic System Image)**
+* with su
+* [GSI List](https://github.com/TrebleDroid/treble_experimentations/wiki/Generic-System-Image-%28GSI%29-list)
 
 
 ```bash

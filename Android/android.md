@@ -101,14 +101,7 @@ Original APK location:
 
 * `React Native（Meta/Facebook）`
 
-### GSI (Generic System Image)
-* with su
-* [List](https://github.com/TrebleDroid/treble_experimentations/wiki/Generic-System-Image-%28GSI%29-list)
 
-
-### DSI(Dynamic System Updates)
-* LiveUSB
-* RAM boot
 
 ### A/B partitions
 * ~ Android 9

@@ -32,12 +32,9 @@ public class LockManager {
 
         Log.d(AppConstants.TAG, "LockManager: LockConfig and TimeTriggerManager initialized");
 
-        // FullScreenActivity起動用 PendingIntent
+        // FullScreenActivity PendingIntent
         Intent startIntent = new Intent(context, FullScreenActivity.class);
         startIntent.putExtra("ACTION", "START");
-        startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-        startIntent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
         this.startLockPendingIntent = PendingIntent.getActivity(
                 context,
                 0,
@@ -62,25 +59,6 @@ public class LockManager {
 
     private void loadAndSetTriggers() {
         Log.d(AppConstants.TAG, "loadAndSetTriggers: Started");
-
-        // パッケージリストを読み込み
-        List<String> packages = config.loadPackageList();
-        Log.d(AppConstants.TAG, "loadAndSetTriggers: Loaded " + packages.size() + " packages");
-
-        // アプリ起動トリガーを設定
-        if (!packages.isEmpty()) {
-            Log.d(AppConstants.TAG, "loadAndSetTriggers: Setting app trigger for packages: " + packages);
-
-            Intent intent = new Intent("ACTION_SET_APP_TRIGGER_CONFIG");
-            intent.putExtra("target_packages", packages.toArray(new String[0]));
-            intent.putExtra("pending_intent", startLockPendingIntent);
-            context.sendBroadcast(intent);
-
-            Log.d(AppConstants.TAG, "loadAndSetTriggers: Broadcast sent for app triggers");
-        } else {
-            Log.w(AppConstants.TAG, "loadAndSetTriggers: No packages to monitor");
-        }
-
         // 時間トリガーを読み込み
         List<RepeatingTriggerConfig> triggers = config.getRepeatingTriggers();
         Log.d(AppConstants.TAG, "loadAndSetTriggers: Loaded " + triggers.size() + " time triggers");
@@ -106,9 +84,6 @@ public class LockManager {
                         stopLockPendingIntent
                 );
                 Log.d(AppConstants.TAG, "loadAndSetTriggers: Trigger #" + (i+1) + " set successfully");
-            } catch (SecurityException e) {
-                // 権限がない場合の処理
-                Log.e(AppConstants.TAG, "loadAndSetTriggers: SCHEDULE_EXACT_ALARM permission not granted for trigger #" + (i+1), e);
             } catch (Exception e) {
                 Log.e(AppConstants.TAG, "loadAndSetTriggers: Failed to set trigger #" + (i+1), e);
             }

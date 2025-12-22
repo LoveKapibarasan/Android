@@ -20,3 +20,9 @@ adb kill-server && adb start-server
 adb push $PC_PATH $DEVICE_PATH
 adb pull $DEVICE_PATH $PC_PATH
 ```
+
+### Logging
+```bash
+adb logcat
+adb logcat -s "YourAppTag"
+```

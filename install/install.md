@@ -1,15 +1,11 @@
 
 1. Install TestDPC as a device owner
-> 8 click "Welcome" and scan QR code.
-> Do not add Google account while initialization.
-> – In the Google Sign in page, enter `afw#TestDPC` in the Email or Phone section.
-```bash
-adb shell dpm set-device-owner com.afwsamples.testdpc/.DeviceAdminReceiver
-```
-* Do not create private profile.
 
-**Safe Boot**
-* User Restrictions -> DISALLOW_FACTORY_RESET
+    1. 8 click "Welcome" and scan QR code.
+    2. Do not add Google account while initialization.
+    3. Do not add a personal profile.
+    4. DisableSafe Boot
+        * User Restrictions -> DISALLOW_FACTORY_RESET
 
 
 2. Enable USB debugging and uninstall Apps
@@ -19,19 +15,22 @@ adb shell dpm set-device-owner com.afwsamples.testdpc/.DeviceAdminReceiver
 ```bash
 # list 3rd party apps
 adb shell pm list packages -3 | findstr xxx
-adb shell pm uninstall --user 0 com.google.example
 # System Apps 
 adb shell pm list packages -s
 ```
-**Disable**
-```bash
 
+**Disable or Uninstall**
+```bash
+# Youtube
 adb shell pm uninstall --user 0 com.google.android.youtube
-# adb shell pm disable-user --user 0 com.google.android.youtube
+### adb shell pm disable-user --user 0 com.google.android.youtube
 adb shell pm uninstall --user 0 com.google.android.apps.youtube.music
 adb shell pm uninstall --user 0 com.android.chrome
+# Assistamt
 adb shell pm uninstall --user 0 com.google.android.apps.assistant
+# Google Docs
 adb shell pm uninstall --user 0 com.google.android.apps.docs
+# Google Files
 adb shell pm uninstall --user 0 com.google.android.apps.nbu.files
 # Google App
 adb shell pm uninstall --user 0 com.google.android.apps.searchlite
@@ -41,17 +40,21 @@ adb shell pm uninstall --user 0 com.google.android.apps.subscriptions.red
 adb shell pm uninstall --user 0 com.google.android.videos
 # Google Meet
 adb shell pm uninstall --user 0 com.google.android.apps.tachyon
+# Google Calendar
 adb shell pm uninstall --user 0 com.google.android.calendar
 # FMRadio
 adb shell pm uninstall --user 0 com.android.fmradio
+# Contacts
 adb shell pm uninstall --user 0 com.android.contacts
+# Personal Safety
 adb shell pm uninstall --user 0 com.google.android.apps.safetyhub
+# Photo
 adb shell pm uninstall --user 0 com.google.android.apps.photosgo
-
+# Clock
 adb shell pm uninstall --user 0 com.android.deskclock.go
-
- adb shell pm uninstall --user 0 com.android.customization.themes
-
+# Themas
+adb shell pm uninstall --user 0 com.android.customization.themes
+# Camera
 adb shell pm uninstall --user 0 com.android.camera
 ```
 > With HyperOS, you can delete Google Apps
@@ -59,87 +62,48 @@ adb shell pm uninstall --user 0 com.android.camera
 
 **Xiaomi**
 ```bash
+# Game
+adb shell pm uninstall --user 0 com.xiaomi.glgm
 adb shell pm uninstall --user 0 com.miui.gameCenter.overlay
- 
+# Video
 adb shell pm uninstall --user 0 com.miui.videoplayer
 adb shell pm uninstall --user 0 com.miui.videoplayer.overlay
-
+Player
 adb shell pm uninstall --user 0 com.miui.player
 adb shell pm uninstall --user 0 com.miui.player.overlay
-
+# Scanner
 adb shell pm uninstall --user 0 com.xiaomi.scanner
 adb shell pm uninstall --user 0 com.miui.scanner.overlay
-adb shell pm uninstall --user 0 com.xiaomi.glgm
-
+# Bug Report
 adb shell pm uninstall --user 0 com.miui.bugreport
-
+# Browser
 adb shell pm uninstall --user 0 com.go.browser
-
-adb shell pm uninstall --user 0 com.miui.theme.lite
-
-adb shell pm uninstall --user 0 com.mi.globalminusscreen
-adb shell pm uninstall --user 0 com.mi.globallayout
-adb shell pm uninstall --user 0 com.miui.analytics.go
-adb shell pm uninstall --user 0 com.miui.qr
+# Fashion
 adb shell pm uninstall --user 0 com.miui.android.fashiongallery
-adb shell pm uninstall --user 0 com.miui.msa.global
+# Discover
 adb shell pm uninstall --user 0 com.xiaomi.discover
-adb shell pm uninstall --user 0 com.android.customization.themes
 ```
 
 
 3. Hostname, Username
 ```bash
- 
 adb shell settings get global device_name
 MY_HOSTNAME='smartphone'
 adb shell settings put global device_name "$MY_HOSTNAME"
 ```
 
 4. Notification
-```powershell
- adb shell pm list packages --user 0 | ForEach-Object {
-    $package = $_ -replace 'package:', ''
-    if ($package -ne "") {
-        Write-Host "Disabling: $package"
-        adb shell "appops set $package POST_NOTIFICATION ignore"
-    }
-}
-
- # 通知システム全体を無効化
- adb shell settings put global heads_up_notifications_enabled 0
-
- # 通知バッジを無効化
- adb shell settings put secure notification_badging 0
-
- # 通知ドットを無効化
- adb shell settings put secure notification_bubbles 0
-
- # ロック画面の通知を無効化
- adb shell settings put secure lock_screen_show_notifications 0
-
- # サイレントモードを常時ON
- adb shell settings put global zen_mode 1
-
- # 通知音も無効化
- adb shell settings put system notification_sound null
-
- # バイブレーションも無効化
- adb shell settings put system notification_vibration_intensity 0
-
- adb shell pm uninstall --user 0 com.gogo.launcher
-```
-
 * Turn on Do Not Disturb Mode
 
-* **Overlay**:画面の上に重ねて表示される機能
+* **Overlay**: 画面の上に重ねて表示される機能
 
   5. Install
-     1. App Block, Stay Focused
-        * [URL](https://appblock.app/)
-       > If blocked, use [AppMirror](https://www.apkmirror.com/)
-       > Sideload is blocked 
-     2. Material Files, VLC for Android, CX File Manager
+     0. FDroid: Open source android app store.
+     1. App Block, Stay Focused + TestDPC
+         * [URL](https://appblock.app/)
+         > Sideload is blocked by AppBlock
+
+     2. Material Files, CX File Manager
         * [Github](https://github.com/zhanghai/MaterialFiles)
      3. Shogi Wars
 
@@ -152,9 +116,7 @@ adb shell settings put global device_name "$MY_HOSTNAME"
          * [URL]()
      7. Wireguard
         * Enable Always on VPN
-     8. Claude.ai
-     9. Google Map
-     10. Google Authenticator
-     11. Gmail, Outlook
-     12. Niagara Launcher
-     13. RealVNC Viewer
+     8. Google Map
+     9. Google Authenticator
+     10. Gmail, Outlook
+     11. Niagara Launcher
