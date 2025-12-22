@@ -9,17 +9,17 @@
 * `Path: %JAVA_HOME%\bin `
 * `JAVA_HOME`: where JDK is installed.
 
-#### IDEs
+#### JSK location by IDEs
 
 1. **Eclipse**
 * [Eclipse](https://adoptium.net/temurin/releases/)
 * Do not have SDK by default.
 
 2. **IntelliJ**
-* `C:\Program Files\JetBrains\IntelliJ IDEA <version>\jbr`
+* Windows: `C:\Program Files\JetBrains\IntelliJ IDEA <version>\jbr`
+
 3. **Android SDK**
-* `C:\Program Files\Android\Android Studio\jbr`
-* `C:\Users\lovek\AppData\Local\Programs\Android Studio\jbr`
+* Windows: `C:\Program Files\Android\Android Studio\jbr`, `C:\Users\lovek\AppData\Local\Programs\Android Studio\jbr`
 
 > `jbr`= JetBrains Runtime
  
@@ -58,21 +58,13 @@ android {
 .\gradlew installDebug
 ```
 
-* Java SDK
-* Android API (Depend on Version)
-
-`AndroidManifest.xml`
-```xml
-<manifest>
-    <uses-permission ... />  ← Permissions
-    
-    <application>
-        <activity ... />     ← Screen
-        <activity ... />
-        
-        <service ... />      ← Service
-        
-        <receiver ... />     ← Receiver
-    </application>
-</manifest>
 ```
+MyProject/
+ ├─ settings.gradle
+ ├─ build.gradle
+ ├─ gradlew
+ ├─ gradle/
+ │   └─ wrapper/
+ │       └─ gradle-wrapper.properties
+ ```
+

@@ -8,7 +8,7 @@ import java.io.File;
 
 public class MyApplication extends Application {
     private static LockManager lockManager;
-
+    private var activityCount = 0
     @Override
     public void onCreate() {
         super.onCreate();
@@ -40,6 +40,20 @@ public class MyApplication extends Application {
 
         } catch (Exception e) {
             Log.e(AppConstants.TAG, "Error initializing LockManager", e);
+        }
+    }
+
+    @Override
+    public void onActivityStarted(Activity activity) {
+        activityCount++
+        isForeground = true
+    }
+    
+    @Override
+    public onActivityStopped(Activity activity) {
+        activityCount--
+        if (activityCount <= 0) {
+            isForeground = false
         }
     }
 

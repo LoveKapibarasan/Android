@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <lock_config>
-<packages>
-<package>com.android.settings</package>
-<package>com.wireguard.android</package>
-<package>com.afsample.testdpc</package>
-</packages>
 
 <time_triggers>
 

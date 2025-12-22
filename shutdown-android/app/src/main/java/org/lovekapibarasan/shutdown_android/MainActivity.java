@@ -18,15 +18,13 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         // Alarm
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         if (!alarmManager.canScheduleExactAlarms()) {
-            // 設定画面へ誘導
+            // Setting
             Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
             startActivity(intent);
         }
-
         // Overlay
         if (!Settings.canDrawOverlays(this)) {
             Log.d(AppConstants.TAG, "canDrawOverlays: " + Settings.canDrawOverlays(this));
@@ -34,9 +32,6 @@ public class MainActivity extends Activity {
                     Uri.parse("package:" + getPackageName()));
             startActivityForResult(intent, 100);
         }
-        // Accessibility
-        Intent accessibilityIntent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-        startActivity(accessibilityIntent);
     }
     public void onImportButtonClick(View view) {
         // Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
@@ -52,7 +47,6 @@ public class MainActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == PICK_XML_FILE && resultCode == RESULT_OK) {
             Uri uri = data.getData();
             MyApplication.getLockManager().getConfig().importUserXml(uri);
