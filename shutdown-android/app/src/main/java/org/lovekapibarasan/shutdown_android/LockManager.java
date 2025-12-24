@@ -5,56 +5,30 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import org.lovekapibarasan.shutdown_android.activity.FullScreenActivity;
+import org.lovekapibarasan.shutdown_android.broadcast.AlarmReceiver;
 import org.lovekapibarasan.shutdown_android.config.LockConfig;
 import org.lovekapibarasan.shutdown_android.config.RepeatingTriggerConfig;
 import org.lovekapibarasan.shutdown_android.triggers.TimeTriggerManager;
+import org.lovekapibarasan.shutdown_android.config.AppConstants;
 import java.util.List;
 
 public class LockManager {
 
     private final Context context;
-    private final LockConfig config;
+    private LockConfig config;
     private final TimeTriggerManager timeTrigger;
-    private final PendingIntent startLockPendingIntent;
-    private PendingIntent stopLockPendingIntent;
 
     private boolean isRunning = false;
 
 
-    public LockManager(Context context, String configPath) {
+    public LockManager(Context context, LockConfig config) {
         Log.d(AppConstants.TAG, "LockManager: Constructor started");
-        Log.d(AppConstants.TAG, "LockManager: configPath = " + configPath);
 
         this.context = context;
-        this.config = new LockConfig(context, configPath);
+        this.config = config;
         this.timeTrigger = new TimeTriggerManager(context);
 
         Log.d(AppConstants.TAG, "LockManager: LockConfig and TimeTriggerManager initialized");
-
-        // FullScreenActivity PendingIntent
-        Intent startIntent = new Intent(context, FullScreenActivity.class);
-        startIntent.putExtra("ACTION", "START");
-        this.startLockPendingIntent = PendingIntent.getActivity(
-                context,
-                0,
-                startIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
-        );
-
-        Intent stopIntent = new Intent(context, FullScreenActivity.class);
-        stopIntent.putExtra("ACTION", "STOP");
-        this.stopLockPendingIntent = PendingIntent.getActivity(
-                context,
-                1,
-                stopIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
-        );
-        Log.d(AppConstants.TAG, "LockManager: PendingIntent created");
-    }
-
-    public LockConfig getConfig() {
-        return config;
     }
 
     private void loadAndSetTriggers() {
@@ -74,14 +48,7 @@ public class LockManager {
 
             try {
                 timeTrigger.setRepeatingTrigger(
-                        trigger.startHour,
-                        trigger.startMinute,
-                        trigger.intervalMinutes,
-                        trigger.durationMinutes,
-                        trigger.endHour,
-                        trigger.endMinute,
-                        startLockPendingIntent,
-                        stopLockPendingIntent
+                        trigger
                 );
                 Log.d(AppConstants.TAG, "loadAndSetTriggers: Trigger #" + (i+1) + " set successfully");
             } catch (Exception e) {
@@ -91,6 +58,20 @@ public class LockManager {
 
         Log.d(AppConstants.TAG, "loadAndSetTriggers: Completed");
     }
+
+    public void updateConfig(LockConfig newConfig) {
+        this.config = newConfig;
+        if (isRunning) {
+            restartTriggers();
+        }
+    }
+
+    private void restartTriggers() {
+        Log.d(AppConstants.TAG, "LockManager: Restarting triggers with new config");
+        timeTrigger.clearAll();
+        loadAndSetTriggers();
+    }
+
     public boolean isRunning() {
         return isRunning;
     }

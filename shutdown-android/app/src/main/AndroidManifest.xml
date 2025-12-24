@@ -5,8 +5,11 @@
     <!-- Permissions -->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission
+        android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <application
         android:name=".MyApplication"
         android:icon="@mipmap/ic_launcher"
@@ -14,37 +17,32 @@
         android:theme="@style/Theme.AppCompat.Light">
 
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+                android:name=".activity.LauncherActivity"
+                android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".activity.FullScreenActivity"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:launchMode="standard"
-            android:exported="true" />
+        <activity android:name=".activity.WelcomeActivity" />
+        <activity android:name=".activity.MainActivity" />
                 <!-- standard: Create instance each time -->
                 <!-- Can Launch from other app-->
 
         <service
-            android:name=".triggers.AppLaunchTrigger"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:description="@string/accessibility_service_description">
-            <!-- Accessibility Service -->
-            <!-- Which intent to receieve -->
+                android:name=".service.FullScreenService"
+                android:exported="false"
+                android:foregroundServiceType="dataSync" />
+        <receiver
+                android:name=".broadcast.BootReceiver"
+                android:exported="true">
             <intent-filter>
-                <action android:name="android.accessibility.AccessibilityService" />
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
-            <meta-data
-                android:name="android.accessibilityservice"
-                android:resource="@xml/accessibility_service_config" />
-        </service>
-
+        </receiver>
+        <receiver
+            android:name=".broadcast.AlarmReceiver"
+            android:exported="false" />
     </application>
 </manifest>

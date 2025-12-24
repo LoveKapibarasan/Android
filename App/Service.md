@@ -43,3 +43,17 @@ public class MusicService extends Service {
     }
 }
 ```
+
+
+### Foreground Service
+* Deprecated: Background service
+* Start below in 5 seconds
+```java 
+// Specify Foreground Service Type!
+    startForeground(
+        AppConstants.NOTIFICATION_ID_GENERAL,
+        notification,
+        ServiceInfo.FOREGROUND_SERVICE_TYPE_MANIFEST
+);
+```
+* This automatically show notification.

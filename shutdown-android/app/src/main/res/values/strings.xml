@@ -1,6 +1,17 @@
 <resources>
     <string name="app_name">shutdown-android</string>\
-    <string name="accessibility_service_description">
-        For personal usage.
-    </string>
+    <string name="app_title">Shutdown Android</string>
+    <string name="test_notification"> Test Notification!</string>
+    <string name="test_overlay"> Test Overlay in 1 minute!</string>
+    <string name="warning">Warning!</string>
+    <string name="close">Close</string>
+    <string name="start_hour">Starting hour. </string>
+    <string name="start_minutes">Starting minutes. </string>
+    <string name="interval_minutes">Interval minutes. </string>
+    <string name="end_hour">Ending hour</string>
+    <string name="end_minutes">Ending minutes. </string>
+    <string name="duration">Durations. </string>
+    <string name="add_config"> Add new configuration</string>
+    <string name="submit">Submit.</string>
+    <string name="delete">Delete.</string>
 </resources>

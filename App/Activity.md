@@ -26,7 +26,7 @@ Intent intent = new Intent(this, NextActivity.class);
 startActivityForResult(intent, REQUEST_CODE);
 
 
-startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_,,);
 
 ```
 
@@ -55,7 +55,11 @@ PendingIntent.getBroadcast(context, requestCode, intent, flags);
     * `FLAG_ACTIVITY_NEW_TASK`: New task
     * `FLAG_ACTIVITY_NO_HISTORY`: No history.cannot go back
     * `FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS`: Do not appar on recent apps
-
+    * `FLAG_ACTIVITY_CLEAR_TOP`:
+```
+A → B → FullScreenActivity → C → D
+A → B → FullScreenActivity
+```
 
 ```java
 package com.example.myapp;
@@ -67,7 +71,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+// AppCompatActivity: ActionBar（Toolbar）or Material Design
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -84,6 +88,87 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Button clicked!", Toast.LENGTH_SHORT).show();
             }
         });
+        finish(); //Close Activity and cannot go back again
     }
 }
+```
+
+### Main Activity
+```xml
+<!-- 1. MAIN 2. LAUNCHER -->
+<!--If there is indent-filter, it should declare android:exported -->
+<activity
+        android:name=".LauncherActivity"
+        android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+</activity>
+```
+
+
+### Back Stack
+
+```
+startActivity(new Intent(this, BActivity.class));
+```
+
+* Lifo
+```
+under ← Older
+┌──────────┐
+│ Activity A│
+├──────────┤
+│ Activity B│
+├──────────┤
+│ Activity C│ ← Now
+└──────────┘
+top ← Newer
+```
+
+# View
+* Activity has views
+* Button
+* TextView
+* ImageView
+* Edit Text
+
+### Overlay
+1. App kill -> NG
+2. Activity + Overlay -> NG
+3. Service + View
+ 
+### LayoutInflator
+
+* XML -> View converter
+
+```java
+LayoutInflater inflater = getLayoutInflater(); // Get from Activity
+// null: no parent view
+View view = inflater.inflate(R.layout.sample_layout, null);
+```
+
+
+### WindowManager
+* Create overlay view from service
+
+**WindowsManager.LayoutParams**
+```java
+
+WindowManager.LayoutParams params = new WindowManager.LayoutParams(
+        WindowManager.LayoutParams.MATCH_PARENT, // Width
+        WindowManager.LayoutParams.MATCH_PARENT, // Height
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ?
+                WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY :
+                WindowManager.LayoutParams.TYPE_PHONE, // Window Type
+        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, // No ficus
+        PixelFormat.TRANSLUCENT // Transparency
+);
+```
+
+### findViewById()
+```java
+// <Button android:id="@+id/btn_close"
+Button btnClose = overlayView.findViewById(R.id.btn_close);
 ```

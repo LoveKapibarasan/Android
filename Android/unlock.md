@@ -8,8 +8,8 @@
     * Enable OEM(Original Equipment Manufacturer) Unlocking
     * Enable USB Debugging
 3. USB mode
-    * File Transfer/MTP or (PTP)
-    * ☓: USB tethering
+    * File Transfer: MTP or (PTP)
+    * ☓ USB tethering
 
 **Enter FASTBOOT MODE**
 
